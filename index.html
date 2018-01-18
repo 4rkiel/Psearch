@@ -43,7 +43,7 @@ function reposList() {
                 'https://api.github.com/repos/4rkiel/'+list[k].name+'/topics', 
                 true
         );
-        request.setRequestHeader('Accept', 'application/JSON');
+        request.setRequestHeader('Accept', 'application/vnd.github.mercy-preview+json');
         request.send();
 
     }

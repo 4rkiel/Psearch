@@ -9,6 +9,7 @@ title: 4th Room
 		<ul id="{{ repository.name }}">
 			<li><h3><a href="{{ repository.html_url }}">{{ repository.name }}</a></h3></li>
 			<li>{{ repository.description }}</li>
+            <li>Yo {{ repository.topics }} </li>
 
 		</ul>
 
@@ -20,4 +21,6 @@ title: 4th Room
 <script>
   var repos = {{ site.github.public_repositories | jsonify }};
     console.log(repos);
+
+
 </script>

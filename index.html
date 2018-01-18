@@ -33,7 +33,7 @@ function reposList() {
 
     var list = JSON.parse(this.responseText);
 
-    for(var k=0; k<strlen(list); k++){
+    for(var k=0 ; k<list.length ; k++){
 
         console.log(list[k]);
         var request = new XMLHttpRequest();

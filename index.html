@@ -19,18 +19,33 @@ title: 4th Room
 </div>
 
 <script>
-  var repos = {{ site.github | jsonify }};
-    console.log(repos);
+//var repos = {{ site.github | jsonify }};
+//console.log(repos);
 
 
+function topicsList(){
+          
+    var responseObj = JSON.parse(this.responseText);
+    console.log(responseObj);
+}
     
-function printRepoCount() {
-  var responseObj = JSON.parse(this.responseText);
-  console.log(responseObj);
+function reposList() {
+
+    var list = JSON.parse(this.responseText);
+
+    for(var k=0; k<strlen(list); k++){
+
+        console.log(list[k]);
+        var request = new XMLHttpRequest();
+        request.onload = topicsList;
+        request.open('get', 'https://api.github.com/repos/4rkiel/'+list[k]+'/topics', true);
+        request.send();
+
+    }
 }
 
 var request = new XMLHttpRequest();
-request.onload = printRepoCount;
+request.onload = reposList;
 request.open('get', 'https://api.github.com/users/4rkiel/repos', true);
 request.send();
 

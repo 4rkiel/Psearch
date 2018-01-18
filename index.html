@@ -18,48 +18,4 @@ title: 4th Room
 
 
 </div>
-<div id="blorb" class="blorb">
 
-	{% for post in site.articles limit:1 %}
-
-	  <h2><a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-	  <div class="content">
-		  <span>{{ post.date | date_to_string }}</span>
-
-	  		{{ post.content }}
-  	  </div>
-
-	{% endfor %}
-
-	<h2><a href="http://codepen.io/4rkiel/pen/KzmvmQ/">Latest Pen</a></h2>
-	<div class="codemo">
-
-
-		<p><a href="/pens">See all Pens</a></p>
-	</div>
-</div>
-
-<script type="text/javascript">
-
-var d;
-
-var m_names = new Array("Jan", "Feb", "Mar",
-"Apr", "May", "Jun", "Jul", "Aug", "Sep",
-"Oct", "Nov", "Dec");
-
-{% for repository in site.github.public_repositories %}
-
-	d = new Date("{{ repository.pushed_at }}");
-	var curr_date = d.getDate();
-	var curr_month = d.getMonth();
-	var curr_year = d.getFullYear();
-
-	var repo = document.getElementById("{{ repository.name }}");
-	var dl = document.createElement("li");
-
-	dl.innerHTML = "Last Update : " + curr_date + " " + m_names[curr_month] + " " + curr_year;
-	repo.appendChild(dl);
-
-{% endfor %}
-
-</script>

@@ -1,0 +1,5 @@
+name: 4rk, the 4th
+baseurl: ''
+exclude: ['_site', Gemfile, Gemfile.lock, LICENSE, README.md]
+gems:
+  - jekyll-sitemap

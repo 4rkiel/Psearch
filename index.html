@@ -38,7 +38,11 @@ function reposList() {
         console.log(list[k]);
         var request = new XMLHttpRequest();
         request.onload = topicsList;
-        request.open('get', 'https://api.github.com/repos/4rkiel/'+list[k]+'/topics', true);
+        request.open(
+                'get', 
+                'https://api.github.com/repos/4rkiel/'+list[k].name+'/topics', 
+                true
+        );
         request.send();
 
     }

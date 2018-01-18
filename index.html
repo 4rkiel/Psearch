@@ -43,6 +43,7 @@ function reposList() {
                 'https://api.github.com/repos/4rkiel/'+list[k].name+'/topics', 
                 true
         );
+        request.setRequestHeader("Content-Type", "application/json");
         request.send();
 
     }

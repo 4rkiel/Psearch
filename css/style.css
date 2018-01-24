@@ -1,8 +1,102 @@
 * {
     margin: 0;
     padding: 0;
+    font-size: 60px;
+    font-family: roboto, arial;
 }
 
-body {
-    background: #fff;
+#wrapper {
+    background: #CFD8DC;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+#hidder {
+    opacity: 1;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #263238;
+}
+
+#hidder.hidded {
+    animation: hide .5s forwards;
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    99% {
+        opacity: 0;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+#resBox {
+    width: 100vw;
+    height: 80vh;
+}
+
+#resBox li {
+    width: 90%;
+    padding: 10px 5%;
+    transition: box-shadow .5s;
+    box-shadow: 0 2px 0px 0px #B0BEC5, inset 0px 0px 0px -10px #2196F3;
+}
+
+#resBox li.focus {
+    box-shadow: 0 2px 0px 0px #B0BEC5, inset 30px 0px 0px -10px #2196F3;
+}
+
+
+#resBox li a {
+    color: #0D47A1;
+    text-decoration: none;
+}
+
+#resBox li span {
+    font-size: 20px;
+    display: block;
+    text-indent: 30px;
+}
+
+#resBox li span pre {
+    font-size: 20px;
+    background: #ECEFF1;
+    display: inline-block;
+    padding: 2px 10px;
+    text-indent: 0;
+    margin: 5px 10px 0 0;
+}
+
+
+#puppy {
+    display: none;
+}
+
+#inForm {
+    width: 100vw;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#inForm input {
+    width: 86%;
+    border: none;
+    padding: 1vh 1vw;
+    background: none;
+    box-shadow: 0 2px 0px 0px #263238;
+    color: #263238;
+    outline: none;
 }

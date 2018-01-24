@@ -1,57 +1,33 @@
----
-layout: default
-title: 4th Room
----
-<div class="blurb">
-	<h2><a href="{{ site.github.owner_url }}">Github Repos</a></h2>
+<!doctype html>
+<html>
 
-	{% for repository in site.github.public_repositories %}
-		<ul id="{{ repository.name }}">
-			<li><h3><a href="{{ repository.html_url }}">{{ repository.name }}</a></h3></li>
-			<li>{{ repository.description }}</li>
-            <li>Yo {{ repository.topics }} </li>
+    <head>
 
-		</ul>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
 
-	{% endfor %}
+    </head>
+    <body>
+        <div id="wrapper">
 
+            <ul id="resBox">
+            </ul>
 
-</div>
+            <ul id="puppy">
+                <li>     
+                    <a></a>
+                    <span></span>
+                    <span></span>
+                </li>
+            </ul>
 
-<script>
-//var repos = {{ site.github | jsonify }};
-//console.log(repos);
+            <form id="inForm">
+                <input id="input" type="text" />
+            </form>
 
+            <div id="hidder"></div>
+        </div>
+    </body>
 
-function topicsList(){
-          
-    var responseObj = JSON.parse(this.responseText);
-    console.log(responseObj);
-}
-    
-function reposList() {
+    <script type="text/javascript" src="script/script.js"></script>
 
-    var list = JSON.parse(this.responseText);
-
-    for(var k=0 ; k<list.length ; k++){
-
-        console.log(list[k]);
-        var request = new XMLHttpRequest();
-        request.onload = topicsList;
-        request.open(
-                'get', 
-                'https://api.github.com/repos/4rkiel/'+list[k].name+'/topics', 
-                true
-        );
-        request.setRequestHeader('Accept', 'application/vnd.github.mercy-preview+json');
-        request.send();
-
-    }
-}
-
-var request = new XMLHttpRequest();
-request.onload = reposList;
-request.open('get', 'https://api.github.com/users/4rkiel/repos', true);
-request.send();
-
-</script>
+</html>

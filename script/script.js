@@ -70,9 +70,9 @@ function searchList (){
 
     resBox.innerHTML = '';
 
-    var word = input.value.toUpperCase();
+    var inword = input.value.toUpperCase();
 
-    if (word == ''){
+    if (inword == ''){
     
         foc = -1;
 
@@ -80,36 +80,58 @@ function searchList (){
     }
 
 
+    var sword = inword.split(' ');
+
+    var stock = [];
+
     var cnt = 0;
 
-    for (var k=0 ; k < clean.length ; k++){
+    for (var j=0 ; j < sword.length ; j++){
 
-        var name = clean[k].name.toUpperCase();
-        if (name.indexOf(word) !== -1){
+        var word = sword[j];
 
-            cnt ++;
+        for (var k=0 ; k < clean.length ; k++){
 
-            var clone = puppy.cloneNode(true);
-            var child = clone.children;
+            var name = clean[k].name.toUpperCase();
 
-            child[0].innerHTML = clean[k].name;
-            child[0].href = baseURL + clean[k].name;
-
-            child[1].innerHTML = clean[k].desc;
-
-            for(var h=1; h < clean[k].topics.length ; h++){
-                var topic = document.createElement('pre');
-                topic.innerHTML = clean[k].topics[h];
-                
-                child[2].appendChild(topic);
-
+            var already = true;
+            for (var i = 0 ; i < stock.length ; i++){
+                if (stock[i] == k){
+                    test = false;
+                    break;
+                }
             }
 
-            resBox.appendChild(clone);
+            if (already && word != '' && name.indexOf(word) !== -1){
 
+                stock.push(k);
+
+                cnt ++;
+
+                console.log(word);
+                var clone = puppy.cloneNode(true);
+                var child = clone.children;
+
+                child[0].innerHTML = clean[k].name;
+                child[0].href = baseURL + clean[k].name;
+
+                child[1].innerHTML = clean[k].desc;
+
+                for(var h=1; h < clean[k].topics.length ; h++){
+                    var topic = document.createElement('pre');
+                    topic.innerHTML = clean[k].topics[h];
+                    
+                    child[2].appendChild(topic);
+
+                }
+
+                resBox.appendChild(clone);
+
+            }
         }
-    }
     
+    }
+
     if (cnt != 0){
 
         foc = 0;

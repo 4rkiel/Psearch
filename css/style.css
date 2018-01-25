@@ -1,7 +1,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-size: 60px;
+    font-size: calc(12px + 5vmin);
     font-family: roboto, arial;
 }
 
@@ -44,6 +44,7 @@
 #resBox {
     width: 100vw;
     height: 80vh;
+    min-height: 100px;
 }
 
 #resBox li {
@@ -89,12 +90,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    min-height: 100px;
+    position: fixed;
+    bottom: 0;
+    background: #CFD8DC;
 }
 
 #inForm input {
-    width: 86%;
+    width: 90vw;
+    height: 10vh;
     border: none;
-    padding: 1vh 1vw;
     background: none;
     box-shadow: 0 2px 0px 0px #263238;
     color: #263238;

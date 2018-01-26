@@ -1,6 +1,7 @@
 
 var resBox = document.getElementById('resBox');
 var puppy = document.getElementById('puppy').lastElementChild;
+var input = document.getElementById('inForm');
 var input = document.getElementById('input');
 input.value = "";
 
@@ -8,7 +9,6 @@ var elemList = null;
 var clean = [];
 var lock = 1;
 
-var inputGet; 
 
 
 var foc = 0;
@@ -26,6 +26,36 @@ function clickHandler (evt){
 
 }
 
+function newFoc (evt){
+    
+    var e = event || evt;
+    var target = e.target;
+
+    var child = target;
+    while(child.nodeName != 'LI'){
+        child = child.parentNode;
+    }
+
+    var i = 0;
+    while( (child = child.previousSibling) != null){
+        i++;
+    }
+
+    child = resBox.children;
+
+    if (foc != -1){
+
+        child[foc].classList.remove('focus');
+
+        foc = i;
+
+        child[foc].classList.add('focus');
+    }
+
+
+
+    input.focus();
+}
 
 
 function keyHandler (evt){
@@ -47,7 +77,6 @@ function keyHandler (evt){
             foc = (foc+1) % child.length;
 
             child[foc].classList.add('focus');
-
         }
 
         input.focus();
@@ -69,6 +98,18 @@ function keyHandler (evt){
 function searchList (){
 
     resBox.innerHTML = '';
+    
+    while (input.value.charAt(0) == ' '){
+        input.value = input.value.substr(1);
+    }
+
+    while (
+        input.value.charAt(input.value.length - 1) == ' ' &&
+        input.value.charAt(input.value.length - 2) == ' '
+    ){
+        input.value = input.value.slice(0, -1);
+    }
+
 
     var inword = input.value.toUpperCase();
 
@@ -82,54 +123,50 @@ function searchList (){
 
     var sword = inword.split(' ');
 
-    var stock = [];
-
     var cnt = 0;
 
-    for (var j=0 ; j < sword.length ; j++){
+    for (var k=0 ; k < clean.length ; k++){
 
-        var word = sword[j];
+        var name = clean[k].name.toUpperCase();
+        
+        var check = true;
 
-        for (var k=0 ; k < clean.length ; k++){
 
-            var name = clean[k].name.toUpperCase();
+        for (var j=0 ; j < sword.length ; j++){
 
-            var already = true;
-            for (var i = 0 ; i < stock.length ; i++){
-                if (stock[i] == k){
-                    test = false;
-                    break;
-                }
-            }
+            var word = sword[j];
 
-            if (already && word != '' && name.indexOf(word) !== -1){
-
-                stock.push(k);
-
-                cnt ++;
-
-                console.log(word);
-                var clone = puppy.cloneNode(true);
-                var child = clone.children;
-
-                child[0].innerHTML = clean[k].name;
-                child[0].href = baseURL + clean[k].name;
-
-                child[1].innerHTML = clean[k].desc;
-
-                for(var h=1; h < clean[k].topics.length ; h++){
-                    var topic = document.createElement('pre');
-                    topic.innerHTML = clean[k].topics[h];
-                    
-                    child[2].appendChild(topic);
-
-                }
-
-                resBox.appendChild(clone);
-
+            if (!(check && name.indexOf(word) !== -1)){
+    
+                check = false;
+                break;
             }
         }
-    
+
+        if (check){
+
+            cnt ++;
+
+            var clone = puppy.cloneNode(true);
+            var child = clone.children;
+
+            child[0].innerHTML = clean[k].name;
+            child[0].href = baseURL + clean[k].name;
+
+            child[1].innerHTML = clean[k].desc;
+
+            for(var h=1; h < clean[k].topics.length ; h++){
+                var topic = document.createElement('pre');
+                topic.innerHTML = clean[k].topics[h];
+                
+                child[2].appendChild(topic);
+
+            }
+
+            resBox.appendChild(clone);
+            clone.addEventListener("click", newFoc, false);
+        }
+
     }
 
     if (cnt != 0){
@@ -166,7 +203,7 @@ function prepEnd (){
 
         input.focus();
 
-        inputGet = input.addEventListener("input", searchList, false);
+        input.addEventListener("input", searchList, false);
     }
 }
 
@@ -221,7 +258,6 @@ request.open('get', 'https://api.github.com/users/4rkiel/repos', true);
 request.send();
 
 
-var keyGet = document.addEventListener("keydown", keyHandler, false);
-var clickGet = document.addEventListener("click", clickHandler, false);
-
-
+document.addEventListener("keydown", keyHandler, false);
+resBox.addEventListener("click", clickHandler, false);
+inForm.addEventListener("click", clickHandler, false);
